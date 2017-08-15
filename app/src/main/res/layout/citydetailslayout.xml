@@ -17,7 +17,8 @@
         android:textAlignment="center"
         android:textStyle="normal|bold"
         android:fontFamily="sans-serif-smallcaps"
-        android:textSize="30sp" />
+        android:textSize="30sp"
+        android:textColor="@android:color/background_light" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -42,7 +43,8 @@
                 android:textSize="24sp"
                 android:textAlignment="center"
                 android:fontFamily="sans-serif-smallcaps"
-                android:layout_marginRight="10dp" />
+                android:layout_marginRight="10dp"
+                android:textColor="@android:color/background_light" />
 
             <ImageView
                 android:id="@+id/ico_main"
@@ -61,7 +63,8 @@
             android:textAlignment="center"
             android:textSize="36sp"
             android:layout_marginTop="5dp"
-            android:elevation="1dp" />
+            android:elevation="1dp"
+            android:textColor="@android:color/background_light" />
 
     </LinearLayout>
 
@@ -177,7 +180,8 @@
                 android:id="@+id/day1"
                 android:textSize="18sp"
                 android:paddingTop="10dp"
-                android:paddingBottom="10dp" />
+                android:paddingBottom="10dp"
+                android:textColor="@android:color/background_light" />
 
             <ImageView
                 android:layout_width="wrap_content"
@@ -193,7 +197,8 @@
                 android:layout_weight="1"
                 android:id="@+id/max_temp1"
                 android:textAlignment="center"
-                android:textSize="18sp" />
+                android:textSize="18sp"
+                android:textColor="@android:color/background_light" />
 
             <TextView
                 android:text="24"
@@ -202,7 +207,8 @@
                 android:layout_weight="1"
                 android:id="@+id/min_temp1"
                 android:textAlignment="textEnd"
-                android:textSize="18sp" />
+                android:textSize="18sp"
+                android:textColor="?android:attr/textColorHint" />
 
 
 
@@ -219,7 +225,8 @@
                 android:id="@+id/day2"
                 android:textSize="18sp"
                 android:paddingTop="10dp"
-                android:paddingBottom="10dp" />
+                android:paddingBottom="10dp"
+                android:textColor="@android:color/background_light" />
 
             <ImageView
                 android:layout_width="wrap_content"
@@ -236,7 +243,8 @@
                 android:layout_weight="1"
                 android:id="@+id/max_temp2"
                 android:textAlignment="center"
-                android:textSize="18sp" />
+                android:textSize="18sp"
+                android:textColor="@android:color/background_light" />
 
             <TextView
                 android:text="22"
@@ -245,7 +253,8 @@
                 android:layout_weight="1"
                 android:id="@+id/min_temp2"
                 android:textAlignment="textEnd"
-                android:textSize="18sp" />
+                android:textSize="18sp"
+                android:textColor="?android:attr/textColorHint" />
 
 
 
@@ -262,7 +271,8 @@
                 android:id="@+id/day3"
                 android:textSize="18sp"
                 android:paddingTop="10dp"
-                android:paddingBottom="10dp" />
+                android:paddingBottom="10dp"
+                android:textColor="@android:color/background_light" />
 
             <ImageView
                 android:layout_width="wrap_content"
@@ -279,7 +289,8 @@
                 android:layout_weight="1"
                 android:id="@+id/max_temp3"
                 android:textAlignment="center"
-                android:textSize="18sp" />
+                android:textSize="18sp"
+                android:textColor="@android:color/background_light" />
 
             <TextView
                 android:text="23"
@@ -288,7 +299,8 @@
                 android:layout_weight="1"
                 android:id="@+id/min_temp3"
                 android:textAlignment="textEnd"
-                android:textSize="18sp" />
+                android:textSize="18sp"
+                android:textColor="?android:attr/textColorHint" />
 
 
 
@@ -305,7 +317,8 @@
                 android:id="@+id/day4"
                 android:textSize="18sp"
                 android:paddingTop="10dp"
-                android:paddingBottom="10dp" />
+                android:paddingBottom="10dp"
+                android:textColor="@android:color/background_light" />
 
             <ImageView
                 android:layout_width="wrap_content"
@@ -322,7 +335,8 @@
                 android:layout_weight="1"
                 android:id="@+id/max_temp4"
                 android:textAlignment="center"
-                android:textSize="18sp" />
+                android:textSize="18sp"
+                android:textColor="@android:color/background_light" />
 
             <TextView
                 android:text="23"
@@ -331,7 +345,8 @@
                 android:layout_weight="1"
                 android:id="@+id/min_temp4"
                 android:textAlignment="textEnd"
-                android:textSize="18sp" />
+                android:textSize="18sp"
+                android:textColor="?android:attr/textColorHint" />
 
 
 
@@ -348,7 +363,8 @@
                 android:id="@+id/day5"
                 android:textSize="18sp"
                 android:paddingTop="10dp"
-                android:paddingBottom="10dp" />
+                android:paddingBottom="10dp"
+                android:textColor="@android:color/background_light" />
 
             <ImageView
                 android:layout_width="wrap_content"
@@ -365,7 +381,8 @@
                 android:layout_weight="1"
                 android:id="@+id/max_temp5"
                 android:textAlignment="center"
-                android:textSize="18sp" />
+                android:textSize="18sp"
+                android:textColor="@android:color/background_light" />
 
             <TextView
                 android:text="23"
@@ -374,7 +391,8 @@
                 android:layout_weight="1"
                 android:id="@+id/min_temp5"
                 android:textAlignment="textEnd"
-                android:textSize="18sp" />
+                android:textSize="18sp"
+                android:textColor="?android:attr/textColorHint" />
 
 
 

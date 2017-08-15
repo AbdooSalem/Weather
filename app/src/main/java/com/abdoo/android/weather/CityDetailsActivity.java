@@ -3,20 +3,12 @@ package com.abdoo.android.weather;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
 import com.squareup.picasso.Picasso;
-
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.Locale;
 
 
 public class CityDetailsActivity extends AppCompatActivity {
@@ -28,7 +20,6 @@ public class CityDetailsActivity extends AppCompatActivity {
     ImageView mainIcoIV ,icoIV1, icoIV2,icoIV3, icoIV4, icoIV5;
     ArrayList<Location> locationsList;
     String[][] forecast;
-    String ico_url[];
     int index;
 
     @Override
@@ -119,6 +110,15 @@ public class CityDetailsActivity extends AppCompatActivity {
         maxTempTV4.setText(forecast[3][2]);
         maxTempTV5.setText(forecast[4][2]);
 
+
+
+        String[] days = loc.getWeekDays();
+        day1.setText(days[1]);
+        day2.setText(days[2]);
+        day3.setText(days[3]);
+        day4.setText(days[4]);
+        day5.setText(days[5]);
+
         Picasso.with(this).load(loc.getIcoUrl()).resize(110,110).into(mainIcoIV);
         Picasso.with(this).load(forecast[0][3]).resize(80, 80).into(icoIV1);
         Picasso.with(this).load(forecast[1][3]).resize(80, 80).into(icoIV2);
@@ -127,10 +127,6 @@ public class CityDetailsActivity extends AppCompatActivity {
         Picasso.with(this).load(forecast[4][3]).resize(80, 80).into(icoIV5);
 
 
-        Calendar calendar = Calendar.getInstance();
-        Date date = calendar.getTime();
-        // full name form of the day
-        String day = new SimpleDateFormat("EEEE", Locale.ENGLISH).format(date.getTime());
 
 
 

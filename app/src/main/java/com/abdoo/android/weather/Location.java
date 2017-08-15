@@ -15,7 +15,11 @@ import java.lang.reflect.Array;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.Date;
 
 
 public class Location implements Serializable {
@@ -32,6 +36,42 @@ public class Location implements Serializable {
     String wind;
     String icoUrl;
     String day;
+    String[] coord;
+    String crrTime;
+    String[] weekDays;
+
+    public String[] getWeekDays() {
+        return weekDays;
+    }
+
+    public void setCrrTime(String crrTime) {
+        this.crrTime = crrTime;
+    }
+
+    public void setCrrDate(String crrDate) {
+        this.crrDate = crrDate;
+    }
+
+    public String getCrrDate() {
+
+        return crrDate;
+    }
+
+    public String getCrrTime() {
+        return crrTime;
+    }
+
+    String crrDate;
+
+    public void setCoord(String lon, String lat) {
+        this.coord = new String[2];
+        this.coord[0] = lon;
+        this.coord[1] = lat;
+    }
+
+    public String[] getCoord() {
+        return coord;
+    }
 
     public void setDay(String day) {
         this.day = day;
@@ -204,6 +244,7 @@ public class Location implements Serializable {
                 JSONObject jObject = new JSONObject(rawJson);
                 JSONArray jArr = jObject.getJSONArray("weather");
                 JSONObject mainObj = jObject.getJSONObject("main");
+                JSONObject coordObj = jObject.getJSONObject("coord");
                 JSONObject windObj = jObject.getJSONObject("wind");
                 JSONObject cloudsObj = jObject.getJSONObject("clouds");
                 JSONObject weatherObj = jArr.getJSONObject(0);
@@ -211,6 +252,7 @@ public class Location implements Serializable {
 
                 String weatherMain = weatherObj.getString("main");
                 String country = sysObj.getString("country");
+                setCoord(coordObj.getString("lon"), coordObj.getString("lat"));
                 int tmp = Float.valueOf(mainObj.getString("temp")).intValue();
                 int press = Float.valueOf(mainObj.getString("pressure")).intValue();
                 int tmp_min = Float.valueOf(mainObj.getString("temp_min")).intValue();
@@ -264,10 +306,56 @@ public class Location implements Serializable {
             }
         }
 
+        // Getting time and date for location
+        String url = "http://api.timezonedb.com/v2/get-time-zone?key=T56VOYGDMASM&format=json&by=position&lng=";
+        url = url + this.getCoord()[0] + "&lat=" + this.getCoord()[1];
+        rawJson = gettingRAWJson(url);
+
+        String date="", time;
+
+        if(rawJson!=null){
+            try {
+                JSONObject obj = new JSONObject(rawJson);
+                String fullDate = obj.getString("formatted");
+                date = fullDate.split(" ")[0];
+                time = fullDate.split(" ")[1].substring(0, 5);
+                setCrrTime(time);
+
+            } catch (final JSONException e) {
+                Log.e("ffff", "Json parsing error: " + e.getMessage());
+            }
+
+            DateFormat formatterFrom = new SimpleDateFormat("yyyy-MM-dd");
+            DateFormat formatterTo = new SimpleDateFormat("EEEE");
+
+            try {
+                Date dt = formatterFrom.parse(date);
+                String reportDate = formatterTo.format(dt);
+                setWeekDays(reportDate);
+
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     private String  getIcoUrl(String icoId){
         String baseUrl = "http://openweathermap.org/img/w/";
         return baseUrl+icoId+".png";
+    }
+
+    public void setWeekDays(String crrDay) {
+        String[] weekDays = {"Saturday", "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday"};
+        String[] days = new String[7];
+        int crr = Arrays.asList(weekDays).indexOf(crrDay);
+        Log.d("ffff", String.valueOf(crr));
+        int crrIndex = 0;
+        for(int i=crr; i<7; i++){
+            days[crrIndex++] = weekDays[i];
+        }
+        for(int i=0; crrIndex<7; i++){
+            days[crrIndex++] = weekDays[i];
+        }
+        this.weekDays = days;
     }
 }
