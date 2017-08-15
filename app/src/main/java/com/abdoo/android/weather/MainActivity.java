@@ -1,105 +1,75 @@
 package com.abdoo.android.weather;
 
-import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
+import android.support.design.widget.FloatingActionButton;
+import android.support.v7.app.AppCompatActivity;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ListAdapter;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
+import com.squareup.picasso.Picasso;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.ArrayList;
-import java.util.HashMap;
 
-public class MainActivity extends Activity {
-    String baseUrl, jsonString;
+public class MainActivity extends AppCompatActivity {
     EditText cityField;
     Button submitBtn;
-    TextView resultView;
+    FloatingActionButton addCityBtn;
     ProgressDialog progressDialog;
-    ArrayList<HashMap<String, String>> locationsList;
+    ArrayList<Location> locationsList;
     ListView locationsLV;
+    LinearLayout addCityLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        baseUrl = "http://api.openweathermap.org/data/2.5/weather?appid=72a308d2afb23e5ae5f69ad98a9c7f4b&units=metric&q=";
-        cityField = (EditText) findViewById(R.id.cityField);
+        cityField = (EditText) findViewById(R.id.city_field);
         submitBtn = (Button) findViewById(R.id.submit_btn);
-        locationsLV = (ListView) findViewById(R.id.locationsLV);
-
+        locationsLV = (ListView) findViewById(R.id.locations_lv);
+        addCityLayout = (LinearLayout) findViewById(R.id.add_city_layout);
 
         locationsList = new ArrayList<>();
 
-
+        locationsLV.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Intent intent = new Intent(MainActivity.this, CityDetailsActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("locationsList", locationsList);
+                intent.putExtras(bundle);
+                intent.putExtra("index", i);
+                startActivity(intent);
+            }
+        });
 
     }
 
     public void submitCity(View view) {
-        String url = baseUrl + cityField.getText().toString();
-        new GettingJSON().execute(url);
+        String city = cityField.getText().toString();
+        cityField.setText("");
+        new GettingJSON().execute(city);
     }
 
-    private String HTTPHandling(String... params){
-        //////  Handling with HTTP - Getting the JSON weather data
-        HttpURLConnection connection = null;
-        BufferedReader reader = null;
-
-        try {
-            URL url = new URL(params[0]);
-            connection = (HttpURLConnection) url.openConnection();
-            connection.connect();
-
-            InputStream stream = connection.getInputStream();
-
-            reader = new BufferedReader(new InputStreamReader(stream));
-
-            StringBuffer buffer = new StringBuffer();
-            String line = "";
-
-            while ((line = reader.readLine()) != null) {
-                buffer.append(line + "\n");
-            }
-            return buffer.toString();
-
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            if (connection != null) {
-                connection.disconnect();
-            }
-            try {
-                if (reader != null) {
-                    reader.close();
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-        ///////////
-        return null;
+    public void addCity(View view) {
+        Intent intent = new Intent(MainActivity.this, addLocationActivity.class);
+        startActivity(intent);
     }
+
 
     private class GettingJSON extends AsyncTask<String, String, String> {
 
@@ -114,38 +84,11 @@ public class MainActivity extends Activity {
 
         @Override
         protected String doInBackground(String... params) {
-            jsonString = HTTPHandling(params[0]);
+            Location loc = new Location(params[0]);
 
-            if(jsonString != null){
-                try {
-
-                    // Deserialize JSON
-
-                    JSONObject jObject = new JSONObject(jsonString);
-                    JSONArray jArr = jObject.getJSONArray("weather");
-                    JSONObject jWeather = jArr.getJSONObject(0);
-                    JSONObject mainObj = jObject.getJSONObject("main");
-
-                    HashMap<String, String> single_loc = new HashMap<>();
-
-                    single_loc.put("name", jObject.getString("name"));
-                    single_loc.put("temp", mainObj.getString("temp")+" °");
-                    single_loc.put("weatherMain", jWeather.getString("main"));
-                    locationsList.add(single_loc);
-
-                } catch (final JSONException e) {
-                    Log.e("ffff", "Json parsing error: " + e.getMessage());
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            Toast.makeText(getApplicationContext(),
-                                    "Json parsing error: " + e.getMessage(),
-                                    Toast.LENGTH_LONG)
-                                    .show();
-                        }
-                    });
-
-                }
+            if(loc.getName()!=null){
+                locationsList.add(loc);
+                return "true";
             }
             return null;
         }
@@ -156,13 +99,46 @@ public class MainActivity extends Activity {
             if (progressDialog.isShowing()){
                 progressDialog.dismiss();
             }
-            ListAdapter adapter = new SimpleAdapter(
-                    MainActivity.this, locationsList,
-                    R.layout.list_item, new String[]{"name", "temp"},
-                    new int[]{R.id.name, R.id.temp}
-                    );
+            if(result == null){
+                Toast.makeText(getApplicationContext(), "Enter a correct location", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            LocationsAdapter adapter = new LocationsAdapter(MainActivity.this, locationsList);
             locationsLV.setAdapter(adapter);
 
         }
+
+        public class LocationsAdapter extends ArrayAdapter<Location> {
+            public LocationsAdapter(Context context, ArrayList<Location> users) {
+                super(context, 0, users);
+            }
+
+            @Override
+            public View getView(int position, View convertView, ViewGroup parent) {
+                // Get the data item for this position
+                Location loc = getItem(position);
+                // Check if an existing view is being reused, otherwise inflate the view
+                if (convertView == null) {
+                    convertView = LayoutInflater.from(getContext()).inflate(R.layout.list_item, parent, false);
+                }
+                // Lookup view for data population
+                TextView name = (TextView) convertView.findViewById(R.id.name);
+                TextView temp = (TextView) convertView.findViewById(R.id.temp);
+                ImageView img = (ImageView) convertView.findViewById(R.id.weather_ico);
+
+                // Populate the data into the template view using the data object
+                name.setText(loc.getName());
+                temp.setText(loc.getTemp());
+                Picasso.with(MainActivity.this).load(loc.getIcoUrl()).resize(90,90).into(img);
+                // Return the completed view to render on screen
+                return convertView;
+            }
+        }
     }
+
+
+
+
+
 }

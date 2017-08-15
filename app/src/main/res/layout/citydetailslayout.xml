@@ -1,0 +1,386 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="20dp"
+    android:weightSum="10">
+
+    <TextView
+        android:id="@+id/city_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="City"
+        android:textAlignment="center"
+        android:textStyle="normal|bold"
+        android:fontFamily="sans-serif-smallcaps"
+        android:textSize="30sp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:visibility="visible"
+        android:id="@+id/temp_layout"
+        android:layout_weight="4"
+        android:layout_height="0dp"
+        android:gravity="center_vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:id="@+id/weather_desc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Sunny"
+                android:textSize="24sp"
+                android:textAlignment="center"
+                android:fontFamily="sans-serif-smallcaps"
+                android:layout_marginRight="10dp" />
+
+            <ImageView
+                android:id="@+id/ico_main"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:filterTouchesWhenObscured="false"
+                android:layout_gravity="center_vertical|fill_vertical" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/temp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="33°"
+            android:textAlignment="center"
+            android:textSize="36sp"
+            android:layout_marginTop="5dp"
+            android:elevation="1dp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:weightSum="10"
+        android:visibility="gone"
+        android:id="@+id/info_layout"
+        android:layout_height="0dp"
+        android:layout_weight="4">
+
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="5"
+            android:paddingRight="11dp"
+            android:gravity="center_vertical"
+            android:paddingLeft="10dp">
+
+            <TableRow
+                android:weightSum="10"
+                android:layout_marginBottom="10dp">
+
+                <TextView
+                    android:layout_weight="5"
+                    android:text="Humidity"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:layout_weight="5"
+                    android:text="63%"
+                    android:textAlignment="textEnd"
+                    android:textSize="14sp"
+                    android:id="@+id/humidity" />
+            </TableRow>
+            <TableRow
+                android:weightSum="10">
+
+                <TextView
+                    android:layout_weight="5"
+                    android:text="Cloudiness"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:layout_weight="5"
+                    android:text="0%"
+                    android:textAlignment="textEnd"
+                    android:textSize="14sp"
+                    android:id="@+id/clouds" />
+            </TableRow>
+        </TableLayout>
+
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="5"
+            android:paddingLeft="11dp"
+            android:gravity="center_vertical"
+            android:paddingRight="10dp">
+
+            <TableRow
+                android:weightSum="10"
+                android:layout_marginBottom="10dp">
+
+                <TextView
+                    android:layout_weight="5"
+                    android:text="Wind"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:layout_weight="5"
+                    android:text="2 mph"
+                    android:textAlignment="textEnd"
+                    android:textSize="14sp"
+                    android:id="@+id/wind" />
+            </TableRow>
+            <TableRow
+                android:weightSum="10">
+
+                <TextView
+                    android:layout_weight="5"
+                    android:text="Pressure"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:layout_weight="5"
+                    android:text="30°"
+                    android:textAlignment="textEnd"
+                    android:textSize="14sp"
+                    android:id="@+id/pressure" />
+            </TableRow>
+
+        </TableLayout>
+
+    </LinearLayout>
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:weightSum="5">
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:weightSum="10"
+            android:layout_weight="5">
+
+            <TextView
+                android:text="Monday"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:id="@+id/day1"
+                android:textSize="18sp"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="5"
+                android:id="@+id/image1"
+                android:layout_gravity="fill_vertical" />
+
+            <TextView
+                android:text="29"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:id="@+id/max_temp1"
+                android:textAlignment="center"
+                android:textSize="18sp" />
+
+            <TextView
+                android:text="24"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:id="@+id/min_temp1"
+                android:textAlignment="textEnd"
+                android:textSize="18sp" />
+
+
+
+        </TableRow>
+        <TableRow
+            android:layout_width="match_parent"
+            android:weightSum="10">
+
+            <TextView
+                android:text="Tuesday"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:id="@+id/day2"
+                android:textSize="18sp"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="5"
+                android:id="@+id/image2"
+                android:adjustViewBounds="false"
+                android:layout_gravity="fill_vertical" />
+
+            <TextView
+                android:text="28"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:id="@+id/max_temp2"
+                android:textAlignment="center"
+                android:textSize="18sp" />
+
+            <TextView
+                android:text="22"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:id="@+id/min_temp2"
+                android:textAlignment="textEnd"
+                android:textSize="18sp" />
+
+
+
+        </TableRow>
+        <TableRow
+            android:layout_width="match_parent"
+            android:weightSum="10">
+
+            <TextView
+                android:text="Wednesday"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:id="@+id/day3"
+                android:textSize="18sp"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="5"
+                android:id="@+id/image3"
+                android:adjustViewBounds="false"
+                android:layout_gravity="fill_vertical" />
+
+            <TextView
+                android:text="28"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:id="@+id/max_temp3"
+                android:textAlignment="center"
+                android:textSize="18sp" />
+
+            <TextView
+                android:text="23"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:id="@+id/min_temp3"
+                android:textAlignment="textEnd"
+                android:textSize="18sp" />
+
+
+
+        </TableRow>
+        <TableRow
+            android:layout_width="match_parent"
+            android:weightSum="10">
+
+            <TextView
+                android:text="Thursday"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:id="@+id/day4"
+                android:textSize="18sp"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="5"
+                android:id="@+id/image4"
+                android:adjustViewBounds="false"
+                android:layout_gravity="fill_vertical" />
+
+            <TextView
+                android:text="29"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:id="@+id/max_temp4"
+                android:textAlignment="center"
+                android:textSize="18sp" />
+
+            <TextView
+                android:text="23"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:id="@+id/min_temp4"
+                android:textAlignment="textEnd"
+                android:textSize="18sp" />
+
+
+
+        </TableRow>
+        <TableRow
+            android:layout_width="match_parent"
+            android:weightSum="10">
+
+            <TextView
+                android:text="Friday"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:id="@+id/day5"
+                android:textSize="18sp"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="5"
+                android:id="@+id/image5"
+                android:adjustViewBounds="false"
+                android:layout_gravity="fill_vertical" />
+
+            <TextView
+                android:text="29"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:id="@+id/max_temp5"
+                android:textAlignment="center"
+                android:textSize="18sp" />
+
+            <TextView
+                android:text="23"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:id="@+id/min_temp5"
+                android:textAlignment="textEnd"
+                android:textSize="18sp" />
+
+
+
+        </TableRow>
+
+    </TableLayout>
+
+
+</LinearLayout>
